@@ -1,0 +1,131 @@
+/*-----------------------------------*\
+ * #SHAYARI ENVELOPES
+\*-----------------------------------*/
+
+.shayari-section {
+  padding-block: var(--section-padding);
+  background: var(--cultured);
+}
+
+.envelopes-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.envelope-wrapper {
+  cursor: pointer;
+  perspective: 1000px;
+  width: 200px;
+  height: 180px;
+}
+
+.envelope {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.envelope-wrapper:hover:not(.opened) .envelope {
+  transform: translateY(-10px);
+}
+
+.envelope-front {
+  width: 100%;
+  height: 100%;
+  background: #ffd700;
+  border-radius: 8px 8px 4px 4px;
+  position: relative;
+  border: 2px solid #d4af37;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: #ffed4e;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 2px solid #d4af37;
+  transform-origin: top;
+  transition: transform 0.5s ease;
+  z-index: 2;
+}
+
+.envelope-wrapper.opened .envelope-flap {
+  transform: rotateX(-180deg);
+}
+
+.envelope-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: slideUp 0.5s ease forwards;
+}
+
+.envelope-wrapper.opened .envelope-content {
+  opacity: 1;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.letter {
+  background: var(--white);
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+.shayari-text {
+  font-family: 'Times New Roman', serif;
+  font-size: var(--fs-6);
+  line-height: 1.8;
+  color: var(--gunmetal);
+  white-space: pre-wrap;
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .envelopes-container {
+    gap: 16px;
+  }
+
+  .envelope-wrapper {
+    width: 150px;
+    height: 135px;
+  }
+
+  .letter {
+    padding: 16px;
+  }
+
+  .shayari-text {
+    font-size: var(--fs-7);
+  }
+}

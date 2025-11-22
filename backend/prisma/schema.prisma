@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  pinHash   String   @map("pin_hash")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  events      Event[]
+  visitStats  VisitStats[]
+  songRatings SongRating[]
+
+  @@map("users")
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  eventType String   @map("event_type")
+  eventData Json?    @map("event_data")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("events")
+}
+
+model VisitStats {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique @map("user_id")
+  totalVisits Int      @default(0) @map("total_visits")
+  lastVisit   DateTime? @map("last_visit")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("visit_stats")
+}
+
+model SongRating {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  songId    String   @map("song_id")
+  rating    Int
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, songId])
+  @@map("song_ratings")
+}
+

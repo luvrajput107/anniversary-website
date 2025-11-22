@@ -1,0 +1,21 @@
+/*-----------------------------------*\
+ * #SPOTIFY PLAYLIST
+\*-----------------------------------*/
+
+.spotify-section {
+  padding-block: var(--section-padding);
+  background: var(--white);
+}
+
+.spotify-container {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: var(--radius-25);
+  overflow: hidden;
+  box-shadow: 0 4px 20px hsla(0, 0%, 0%, 0.1);
+}
+
+.spotify-embed {
+  display: block;
+  border-radius: var(--radius-25);
+}
