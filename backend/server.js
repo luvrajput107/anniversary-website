@@ -13,6 +13,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+
+// ADD THIS LINE:
+app.set("trust proxy", 1); // trust Render's proxy (needed for express-rate-limit)
+
 // Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
